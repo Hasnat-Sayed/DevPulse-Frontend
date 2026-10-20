@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth } from "@/context/auth-context";
-import { ApiError } from "@/lib/api";
+import { useApiError } from "@/hooks/use-api-error";
 import { updateIssue } from "@/lib/issues-api";
 import { EditIssueDialog } from "@/components/issues/edit-issue-dialog";
 import { DeleteIssueDialog } from "@/components/issues/delete-issue-dialog";
@@ -38,22 +38,7 @@ export function IssueActions({ issue, onChange }: IssueActionsProps) {
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [statusPending, setStatusPending] = React.useState(false);
 
-  const handleApiError = React.useCallback(
-    (error: unknown) => {
-      if (error instanceof ApiError && error.status === 401) {
-        toast.error("Your session expired. Please log in again.");
-        logout();
-        router.push("/login");
-        return;
-      }
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("An unexpected error occurred");
-      }
-    },
-    [logout, router]
-  );
+  const handleApiError = useApiError();
 
   if (!user) {
     return null;
