@@ -23,6 +23,7 @@ interface DeleteIssueDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onError: (error: unknown) => void;
+  onDeleted?: () => void;
 }
 
 export function DeleteIssueDialog({
@@ -30,18 +31,24 @@ export function DeleteIssueDialog({
   open,
   onOpenChange,
   onError,
+  onDeleted,
 }: DeleteIssueDialogProps) {
   const router = useRouter();
   const { token } = useAuth();
   const [deleting, setDeleting] = React.useState(false);
 
   const handleDelete = async () => {
+    console.log("onDeleted provided?", Boolean(onDeleted));
     setDeleting(true);
     try {
       await deleteIssue(issue.id, token);
       toast.success("Issue deleted");
       onOpenChange(false);
-      router.push("/items");
+      if (onDeleted) {
+        onDeleted();
+      } else {
+        router.push("/items");
+      }
     } catch (err: unknown) {
       onError(err);
     } finally {
@@ -55,7 +62,8 @@ export function DeleteIssueDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete this issue?</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete &ldquo;{issue.title}&rdquo;? This action cannot be undone.
+            Are you sure you want to delete &ldquo;{issue.title}&rdquo;? This
+            action cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
