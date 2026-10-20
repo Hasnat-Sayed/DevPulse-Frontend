@@ -54,14 +54,14 @@ export function IssueCard({ issue }: IssueCardProps) {
 
       <div className="pt-5 mt-4 border-t border-border/60 flex flex-col gap-3">
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="truncate max-w-[130px] font-medium text-foreground/80">
+          <span className="truncate max-w-[130px] font-semibold text-foreground/80">
             {issue.reporter?.name || "Unknown"}
           </span>
           <span>{formatDate(issue.created_at)}</span>
         </div>
         <Button
-          variant="outline"
-          size="sm"
+          variant="secondary"
+          size="lg"
           className="w-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           nativeButton={false}
           render={<Link href={`/items/${issue.id}`} />}

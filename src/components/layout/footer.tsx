@@ -1,5 +1,6 @@
-import Link from "next/link"
-import { Activity } from "lucide-react"
+import Link from "next/link";
+import { Activity } from "lucide-react";
+import { SiGithub } from "react-icons/si";
 
 export function Footer() {
   return (
@@ -70,7 +71,9 @@ export function Footer() {
 
             {/* Resources */}
             <div className="space-y-3">
-              <h3 className="text-sm font-semibold text-foreground">Resources</h3>
+              <h3 className="text-sm font-semibold text-foreground">
+                Resources
+              </h3>
               <ul className="space-y-2">
                 <li>
                   <Link
@@ -90,8 +93,17 @@ export function Footer() {
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} DevPulse. All rights reserved.
           </p>
+          <Link
+            href="https://github.com/YOUR-USERNAME/YOUR-REPO"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub repository"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <SiGithub className="size-5" />
+          </Link>
         </div>
       </div>
     </footer>
-  )
+  );
 }

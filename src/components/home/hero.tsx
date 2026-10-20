@@ -18,7 +18,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10 select-none overflow-hidden"
       >
         <div
-          className="absolute inset-0 bg-[linear-gradient(to_right,oklch(var(--border)/0.2)_1px,transparent_1px),linear-gradient(to_bottom,oklch(var(--border)/0.2)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,var(--border)_45%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--border)_45%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
         />
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[34rem] h-[34rem] rounded-full bg-primary/20 blur-3xl animate-pulse-glow" />
         <div className="absolute top-48 left-1/3 -translate-x-1/2 w-[26rem] h-[26rem] rounded-full bg-secondary/30 blur-3xl animate-pulse-glow [animation-delay:4s]" />
@@ -194,7 +194,7 @@ export function Hero() {
                 {/* Small floating "Resolved" chip overlapping corner */}
                 <div className="animate-float [animation-delay:2s] absolute -bottom-4 -right-2 sm:-right-4 rounded-xl border border-border/80 bg-card/95 px-3.5 py-2 shadow-xl backdrop-blur-md flex items-center gap-2">
                   <div className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs font-medium text-foreground">98.4% Issues Resolved</span>
+                  <span className="text-xs font-medium text-foreground">Live Issue Tracking</span>
                 </div>
               </div>
             </Reveal>

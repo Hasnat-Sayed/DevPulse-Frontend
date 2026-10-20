@@ -43,7 +43,7 @@ export function LatestIssues() {
   /* eslint-enable react-hooks/set-state-in-effect */
 
   return (
-    <section className="py-16 md:py-24 border-t border-border/50">
+    <section className="border-y border-border/50 bg-card/30 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div className="space-y-2">

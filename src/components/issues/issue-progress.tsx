@@ -13,49 +13,52 @@ export function IssueProgress({ status }: { status: IssueStatus }) {
   const resolved = status === "resolved";
 
   return (
-    <ol className="grid grid-cols-3" aria-label="Issue progress">
+    <ol className="flex items-start px-3" aria-label="Issue progress">
       {STEPS.map((step, i) => {
         const done = i < current || resolved;
         const active = i === current && !resolved;
+        const isLast = i === STEPS.length - 1;
         return (
           <li
             key={step.key}
             aria-current={i === current ? "step" : undefined}
-            className="relative flex flex-col items-center gap-2 text-center"
+            className={cn("flex items-start", !isLast && "flex-1")}
           >
-            {i < STEPS.length - 1 && (
+            <div className="flex w-11 shrink-0 flex-col items-center gap-2">
+              <span
+                className={cn(
+                  "flex size-11 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors",
+                  done && "border-primary bg-primary text-primary-foreground",
+                  active && "border-primary bg-primary/15 text-primary",
+                  !done && !active && "border-border bg-muted text-muted-foreground"
+                )}
+              >
+                {done ? (
+                  <Check className="size-5" />
+                ) : active ? (
+                  <span className="size-3 animate-pulse rounded-full bg-primary motion-reduce:animate-none" />
+                ) : (
+                  i + 1
+                )}
+              </span>
+              <span
+                className={cn(
+                  "whitespace-nowrap text-sm font-medium",
+                  done || active ? "text-foreground" : "text-muted-foreground"
+                )}
+              >
+                {step.label}
+              </span>
+            </div>
+            {!isLast && (
               <span
                 aria-hidden
                 className={cn(
-                  "absolute top-[21px] left-[calc(50%_+_28px)] right-[calc(-50%_+_28px)] h-0.5 rounded-full",
+                  "mx-2 mt-[21px] h-0.5 flex-1 rounded-full",
                   i < current ? "bg-primary" : "bg-border"
                 )}
               />
             )}
-            <span
-              className={cn(
-                "relative z-10 flex size-11 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors",
-                done && "border-primary bg-primary text-primary-foreground",
-                active && "border-primary bg-primary/15 text-primary",
-                !done && !active && "border-border bg-muted text-muted-foreground"
-              )}
-            >
-              {done ? (
-                <Check className="size-5" />
-              ) : active ? (
-                <span className="size-3 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
-              ) : (
-                i + 1
-              )}
-            </span>
-            <span
-              className={cn(
-                "text-sm font-medium",
-                done || active ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              {step.label}
-            </span>
           </li>
         );
       })}

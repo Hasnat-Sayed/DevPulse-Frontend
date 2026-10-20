@@ -35,8 +35,6 @@ interface IssueDetailsProps {
   id: string;
 }
 
-
-
 function getInitials(name?: string): string {
   if (!name) return "?";
   const parts = name.trim().split(/\s+/);
@@ -68,7 +66,8 @@ export function IssueDetails({ id }: IssueDetailsProps) {
           .filter((item) => String(item.id) !== String(current.id))
           .sort(
             (a, b) =>
-              new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime(),
           )
           .slice(0, 3);
         setRelatedIssues(filtered);
@@ -102,7 +101,8 @@ export function IssueDetails({ id }: IssueDetailsProps) {
           .filter((item) => String(item.id) !== String(current.id))
           .sort(
             (a, b) =>
-              new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime(),
           )
           .slice(0, 3);
         setRelatedIssues(filtered);
@@ -152,7 +152,8 @@ export function IssueDetails({ id }: IssueDetailsProps) {
               Issue not found
             </h1>
             <p className="text-sm text-muted-foreground">
-              The issue you are looking for does not exist or may have been removed.
+              The issue you are looking for does not exist or may have been
+              removed.
             </p>
           </div>
           <Button nativeButton={false} render={<Link href="/items" />}>
@@ -243,7 +244,8 @@ export function IssueDetails({ id }: IssueDetailsProps) {
               Failed to load issue
             </h1>
             <p className="text-sm text-muted-foreground">
-              {error || "An unexpected error occurred while loading this issue."}
+              {error ||
+                "An unexpected error occurred while loading this issue."}
             </p>
           </div>
           <Button
@@ -262,8 +264,6 @@ export function IssueDetails({ id }: IssueDetailsProps) {
   const currentType = typeMeta[issue.type];
   const currentStatus = statusMeta[issue.status];
   const TypeIcon = currentType?.icon;
-
- 
 
   return (
     <div className="space-y-6">
@@ -289,7 +289,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
               <div
                 className={cn(
                   "size-14 rounded-xl flex items-center justify-center shrink-0 shadow-sm",
-                  currentType?.bgClass
+                  currentType?.bgClass,
                 )}
                 title={currentType?.label}
               >
@@ -302,7 +302,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
                     variant="outline"
                     className={cn(
                       "capitalize font-medium text-xs px-2.5 py-0.5",
-                      currentType?.badgeClass
+                      currentType?.badgeClass,
                     )}
                   >
                     {currentType?.label ?? issue.type}
@@ -311,7 +311,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
                     variant="outline"
                     className={cn(
                       "capitalize font-medium text-xs px-2.5 py-0.5",
-                      currentStatus?.badgeClass
+                      currentStatus?.badgeClass,
                     )}
                   >
                     {currentStatus?.label ?? issue.status}
@@ -351,10 +351,6 @@ export function IssueDetails({ id }: IssueDetailsProps) {
                 </div>
               </div>
             </div>
-
-            <div className="shrink-0 self-start md:self-auto">
-              <IssueActions issue={issue} onChange={refresh} />
-            </div>
           </div>
         </div>
       </Reveal>
@@ -366,7 +362,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
           {/* Description Card */}
           <Reveal delay={100}>
             <Card className="p-6">
-              <div className="flex items-center gap-2.5 mb-4">
+              <div className="flex items-center gap-2.5">
                 <FileText className="size-5 text-primary" />
                 <h2 className="text-lg font-semibold text-foreground">
                   Description
@@ -377,11 +373,13 @@ export function IssueDetails({ id }: IssueDetailsProps) {
               </p>
             </Card>
           </Reveal>
+          {/* Manage card: renders only when the user can act on this issue */}
+          <IssueActions issue={issue} onChange={refresh} />
 
           {/* Progress Card */}
           <Reveal delay={150}>
             <Card className="p-6">
-              <div className="flex items-center gap-2.5 mb-6">
+              <div className="flex items-center gap-2.5">
                 <Info className="size-5 text-primary" />
                 <h2 className="text-lg font-semibold text-foreground">
                   Progress
@@ -391,7 +389,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
               <div
                 role="region"
                 aria-label="Issue Progress"
-                className="w-full py-2"
+                className="w-full pt-2.5"
               >
                 <IssueProgress status={issue.status} />
               </div>

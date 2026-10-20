@@ -10,17 +10,20 @@ export function CtaBanner() {
   const { user } = useAuth();
 
   return (
-    <section className="py-16 md:py-24 border-t border-border/50">
+    <section className="py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-b from-card via-card/90 to-card/50 p-8 sm:p-12 md:p-16 text-center shadow-2xl shadow-primary/5">
+          <div className="relative isolate overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/30 via-card to-blue-500/25 p-8 text-center shadow-2xl shadow-primary/10 sm:p-12 md:p-16">
             {/* Soft decorative background glow */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
-            >
-              <div className="h-64 w-64 md:h-96 md:w-96 rounded-full bg-primary/15 blur-3xl" />
-            </div>
+              className="pointer-events-none absolute -left-24 -top-24 -z-10 size-72 rounded-full bg-primary/30 blur-3xl"
+            />
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-24 -right-24 -z-10 size-72 rounded-full bg-blue-500/25 blur-3xl"
+            />
 
             <div className="max-w-2xl mx-auto space-y-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
@@ -33,7 +36,8 @@ export function CtaBanner() {
               </h2>
 
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Join engineering teams shipping high quality software with structured issue workflows and clear accountability.
+                Join engineering teams shipping high quality software with
+                structured issue workflows and clear accountability.
               </p>
 
               <div className="pt-2 flex flex-wrap justify-center items-center gap-4">

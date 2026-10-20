@@ -87,7 +87,7 @@ export default function AboutPage() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border shadow-2xl shadow-black/40">
             <Image
               src="/images/aaa.webp"
-              alt="A laptop with codes"
+              alt="Laptop showing source code on screen in a dark room"
               fill
               sizes="(min-width: 1024px) 560px, 100vw"
               className="object-cover"
@@ -159,7 +159,8 @@ export default function AboutPage() {
 
       {/* Stack + CTA */}
       <Reveal>
-        <div className="rounded-2xl border border-border bg-card/60 p-8 text-center md:p-12">
+        <div className="relative isolate overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-primary/20 via-card/70 to-primary/10 p-8 text-center md:p-12">
+        <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 -z-10 size-64 rounded-full bg-primary/25 blur-3xl" />
           <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">Built with modern tools</h2>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             {STACK.map((item) => (

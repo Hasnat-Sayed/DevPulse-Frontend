@@ -30,9 +30,9 @@ import { cn } from "cn"
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Items", href: "/items" },
+  { name: "Issues", href: "/items" },
   { name: "About", href: "/about" },
-  { name: "Features", href: "/#features" },
+  { name: "Contact", href: "/contact" },
 ]
 
 function getInitials(name?: string): string {

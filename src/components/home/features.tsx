@@ -17,7 +17,7 @@ const features = [
   {
     icon: Filter,
     title: "Filter and Search",
-    description: "Instant filtering by status, category type, and creation date to find what matters.",
+    description: "Instant search plus filters by type and status, with newest or oldest sorting.",
     color: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
   },
   {
@@ -29,7 +29,7 @@ const features = [
   {
     icon: KeyRound,
     title: "Secure Authentication",
-    description: "Stateless, enterprise-grade JSON Web Token authentication with secure token storage.",
+    description: "Stateless JWT sign-in, with permissions checked on the server for every protected action.",
     color: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
   },
   {
@@ -42,7 +42,7 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="scroll-mt-20 py-16 md:py-24 border-t border-border/50">
+    <section id="features" className="scroll-mt-20 border-y border-border/50 bg-card/30 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <Reveal>

@@ -79,7 +79,7 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthCard
+    <AuthCard 
       title="Sign In"
       description="Enter your email and password to access your account"
       footer={

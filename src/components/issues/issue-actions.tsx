@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Pencil, Trash2 } from "lucide-react";
+import { Loader2, Pencil, SlidersHorizontal, Trash2 } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Reveal } from "@/components/common/reveal";
+import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -67,91 +70,109 @@ export function IssueActions({ issue, onChange }: IssueActionsProps) {
     }
   };
 
-  return (
-    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2 w-full sm:w-auto">
-      {/* Contributor owner with non-open issue */}
-      {!canEdit && isOwner && (
-        <div className="flex flex-col gap-1 w-full sm:w-auto">
-          <Button
-            variant="outline"
-            disabled
-            className="w-full sm:w-auto gap-2"
-          >
-            <Pencil className="size-4" />
-            Edit
-          </Button>
-          <p className="text-xs text-muted-foreground">
-            Only maintainers can edit an issue once work has started.
-          </p>
+    
+return (
+  <>
+    <Reveal delay={200}>
+      <Card className="gap-3 p-6">
+        <div className="flex items-center gap-2.5">
+          <SlidersHorizontal className="size-5 text-primary" />
+          <h2 className="text-lg font-semibold text-foreground">
+            Manage issue
+          </h2>
         </div>
-      )}
 
-      {/* canEdit: outline Edit button */}
-      {canEdit && (
-        <Button
-          variant="outline"
-          onClick={() => setEditOpen(true)}
-          className="w-full sm:w-auto gap-2"
-        >
-          <Pencil className="size-4" />
-          Edit
-        </Button>
-      )}
+        <p className="text-sm text-muted-foreground">
+          {isMaintainer
+            ? "Update the status, edit the details, or remove this issue."
+            : "You can edit this issue while it is still open."}
+        </p>
 
-      {/* Maintainer only: status Select */}
-      {isMaintainer && (
-        <div className="w-full sm:w-40">
-          <Select
-            value={issue.status}
-            onValueChange={handleStatusChange}
-            disabled={statusPending}
+        <div className="space-y-3">
+          {/* Actions */}
+          <div
+            className={cn(
+              "grid gap-3",
+              isMaintainer ? "grid-cols-3" : "grid-cols-1"
+            )}
           >
-            <SelectTrigger className="w-full sm:w-40 justify-between">
-              {statusPending ? (
-                <div className="flex items-center gap-2">
-                  <Loader2 className="size-4 animate-spin text-muted-foreground" />
-                  <span className="text-muted-foreground">Updating...</span>
-                </div>
-              ) : (
-                <SelectValue />
-              )}
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="open">Open</SelectItem>
-              <SelectItem value="in_progress">In Progress</SelectItem>
-              <SelectItem value="resolved">Resolved</SelectItem>
-            </SelectContent>
-          </Select>
+            {isMaintainer && (
+              <Select
+                value={issue.status}
+                onValueChange={handleStatusChange}
+                disabled={statusPending}
+              >
+                <SelectTrigger
+                  aria-label="Issue status"
+                  className="w-full justify-between"
+                >
+                  {statusPending ? (
+                    <span className="flex items-center gap-2 text-muted-foreground">
+                      <Loader2 className="size-4 animate-spin" />
+                      Updating...
+                    </span>
+                  ) : (
+                    <SelectValue />
+                  )}
+                </SelectTrigger>
+
+                <SelectContent>
+                  <SelectItem value="open">Open</SelectItem>
+                  <SelectItem value="in_progress">In Progress</SelectItem>
+                  <SelectItem value="resolved">Resolved</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+
+            {canEdit && (
+              <Button
+                variant="secondary"
+                onClick={() => setEditOpen(true)}
+                className="gap-2"
+              >
+                <Pencil className="size-4" />
+                Edit
+              </Button>
+            )}
+
+            {isMaintainer && (
+              <Button
+                variant="outline"
+                onClick={() => setDeleteOpen(true)}
+                className="gap-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
+              >
+                <Trash2 className="size-4" />
+                Delete
+              </Button>
+            )}
+          </div>
+
+          {/* Permission message */}
+          {!canEdit && isOwner && (
+            <p className="text-xs text-muted-foreground">
+              Only maintainers can edit an issue once work has started.
+            </p>
+          )}
         </div>
-      )}
+      </Card>
+    </Reveal>
 
-      {/* Maintainer only: outline destructive Delete button */}
-      {isMaintainer && (
-        <Button
-          variant="outline"
-          onClick={() => setDeleteOpen(true)}
-          className="w-full sm:w-auto gap-2 text-destructive border-border hover:bg-destructive/10 hover:text-destructive"
-        >
-          <Trash2 className="size-4" />
-          Delete
-        </Button>
-      )}
+    <EditIssueDialog
+      issue={issue}
+      open={editOpen}
+      onOpenChange={setEditOpen}
+      onSaved={onChange}
+      onError={handleApiError}
+    />
 
-      {/* Dialogs */}
-      <EditIssueDialog
-        issue={issue}
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        onSaved={onChange}
-        onError={handleApiError}
-      />
+    <DeleteIssueDialog
+      issue={issue}
+      open={deleteOpen}
+      onOpenChange={setDeleteOpen}
+      onError={handleApiError}
+    />
+  </>
+);
 
-      <DeleteIssueDialog
-        issue={issue}
-        open={deleteOpen}
-        onOpenChange={setDeleteOpen}
-        onError={handleApiError}
-      />
-    </div>
-  );
+
 }
