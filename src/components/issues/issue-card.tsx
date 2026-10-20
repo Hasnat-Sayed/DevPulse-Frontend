@@ -1,31 +1,19 @@
 import Link from "next/link";
-import { Bug, Lightbulb } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatDate, getStatusLabel } from "@/lib/format";
-import type { Issue, IssueStatus } from "@/types";
+import { formatDate, statusMeta, typeMeta } from "@/lib/format";
+import type { Issue } from "@/types";
 import { cn } from "cn";
 
 interface IssueCardProps {
   issue: Issue;
 }
 
-function getStatusBadgeClass(status: IssueStatus): string {
-  switch (status) {
-    case "open":
-      return "border-emerald-500/30 bg-emerald-500/10 text-emerald-400";
-    case "in_progress":
-      return "border-amber-500/30 bg-amber-500/10 text-amber-400";
-    case "resolved":
-      return "border-indigo-500/30 bg-indigo-500/10 text-indigo-400";
-    default:
-      return "border-border bg-muted text-muted-foreground";
-  }
-}
-
 export function IssueCard({ issue }: IssueCardProps) {
-  const isBug = issue.type === "bug";
+  const currentType = typeMeta[issue.type];
+  const currentStatus = statusMeta[issue.status];
+  const TypeIcon = currentType?.icon;
 
   return (
     <div className="group h-full flex flex-col justify-between rounded-xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
@@ -34,19 +22,17 @@ export function IssueCard({ issue }: IssueCardProps) {
           <div
             className={cn(
               "flex size-9 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-105",
-              isBug
-                ? "bg-rose-500/10 text-rose-400 border border-rose-500/20"
-                : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+              currentType?.bgClass
             )}
-            title={isBug ? "Bug" : "Feature Request"}
+            title={currentType?.label}
           >
-            {isBug ? <Bug className="size-4.5" /> : <Lightbulb className="size-4.5" />}
+            {TypeIcon && <TypeIcon className="size-4.5" />}
           </div>
           <Badge
             variant="outline"
-            className={cn("capitalize font-medium text-xs px-2.5 py-0.5", getStatusBadgeClass(issue.status))}
+            className={cn("capitalize font-medium text-xs px-2.5 py-0.5", currentStatus?.badgeClass)}
           >
-            {getStatusLabel(issue.status)}
+            {currentStatus?.label ?? issue.status}
           </Badge>
         </div>
 
