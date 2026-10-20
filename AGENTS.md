@@ -20,3 +20,6 @@ POST /api/issues {title,description,type}; PATCH /api/issues/:id; DELETE /api/is
 Issue: id,title,description,type(bug|feature_request),status(open|in_progress|resolved),reporter{id,name,role},created_at,updated_at. No images, use icons.
 
 Rules: do only the task given; edit only needed files. No terminal commands, no browser, no git, no new packages, no plan or walkthrough files. Final reply: max 3 lines listing changed files.
+
+- A Button with `render={<Link />}` must also set `nativeButton={false}`.
+- Next.js 16: in dynamic pages, `params` is a Promise. In server components use `await params`; in client components use `use(params)` from React.
