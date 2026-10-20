@@ -55,6 +55,31 @@ export function IssueDetails({ id }: IssueDetailsProps) {
   const [error, setError] = React.useState<string | null>(null);
   const [isNotFound, setIsNotFound] = React.useState<boolean>(!isIdValid);
 
+  const refresh = React.useCallback(async () => {
+    if (!isIdValid) return;
+    try {
+      const issueRes = await getIssue(id.trim());
+      const current = issueRes.data;
+      setIssue(current);
+
+      try {
+        const relatedRes = await getIssues({ type: current.type });
+        const filtered = (relatedRes.data || [])
+          .filter((item) => String(item.id) !== String(current.id))
+          .sort(
+            (a, b) =>
+              new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          )
+          .slice(0, 3);
+        setRelatedIssues(filtered);
+      } catch {
+        // preserve existing related issues or ignore error
+      }
+    } catch {
+      // keep current state if silent refresh fails
+    }
+  }, [id, isIdValid]);
+
   const fetchIssueAndRelated = React.useCallback(async () => {
     if (!isIdValid) {
       setIsNotFound(true);
@@ -238,11 +263,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
   const currentStatus = statusMeta[issue.status];
   const TypeIcon = currentType?.icon;
 
-  const stepOrder: Record<IssueStatus, number> = {
-    open: 0,
-    in_progress: 1,
-    resolved: 2,
-  };
+ 
 
   return (
     <div className="space-y-6">
@@ -332,10 +353,7 @@ export function IssueDetails({ id }: IssueDetailsProps) {
             </div>
 
             <div className="shrink-0 self-start md:self-auto">
-              <IssueActions
-                issue={issue}
-                onChange={(updated) => setIssue(updated)}
-              />
+              <IssueActions issue={issue} onChange={refresh} />
             </div>
           </div>
         </div>

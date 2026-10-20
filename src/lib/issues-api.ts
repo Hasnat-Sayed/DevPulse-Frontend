@@ -1,5 +1,5 @@
 import { apiFetch } from "@/lib/api";
-import type { ApiSuccess, Issue, IssueFilters, IssueInput } from "@/types";
+import type { ApiSuccess, Issue, IssueFilters, IssueInput, IssueStatus } from "@/types";
 
 export async function getIssues(
   filters?: IssueFilters
@@ -41,7 +41,7 @@ export async function createIssue(
 
 export async function updateIssue(
   id: number | string,
-  input: Partial<IssueInput> & { status?: Issue["status"] },
+  input: Partial<IssueInput> & { status?: IssueStatus },
   token?: string | null
 ): Promise<ApiSuccess<Issue>> {
   return apiFetch<Issue>(`/api/issues/${id}`, {
