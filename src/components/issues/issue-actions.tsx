@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { Reveal } from "@/components/common/reveal";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -34,8 +33,7 @@ const STATUS_LABELS: Record<IssueStatus, string> = {
 };
 
 export function IssueActions({ issue, onChange }: IssueActionsProps) {
-  const router = useRouter();
-  const { user, token, logout } = useAuth();
+  const { user, token} = useAuth();
 
   const [editOpen, setEditOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);

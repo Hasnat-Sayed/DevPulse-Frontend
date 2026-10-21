@@ -79,7 +79,7 @@ export default function ContactPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.label}
-                      className="flex size-10 items-center justify-center rounded-full border border-border bg-background/10 text-secodary transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary"
+                      className="flex size-10 items-center justify-center rounded-full border border-white bg-background/10 text-secodary transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary"
                     >
                       <s.icon className="size-4" />
                     </a>

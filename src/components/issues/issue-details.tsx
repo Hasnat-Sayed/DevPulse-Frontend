@@ -27,7 +27,7 @@ import { IssueActions } from "@/components/issues/issue-actions";
 import { ApiError } from "@/lib/api";
 import { formatDate, formatRelative, statusMeta, typeMeta } from "@/lib/format";
 import { getIssue, getIssues } from "@/lib/issues-api";
-import type { Issue, IssueStatus } from "@/types";
+import type { Issue } from "@/types";
 import { cn } from "cn";
 import { IssueProgress } from "./issue-progress";
 

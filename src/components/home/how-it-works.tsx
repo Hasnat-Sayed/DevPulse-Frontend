@@ -5,19 +5,22 @@ const steps = [
   {
     step: "01",
     title: "Sign up",
-    description: "Create an account in seconds with custom role assignment for your team.",
+    description:
+      "Create an account in seconds with custom role assignment for your team.",
     icon: UserPlus,
   },
   {
     step: "02",
     title: "Report an issue",
-    description: "Log bugs with technical descriptions or pitch ambitious feature requests.",
+    description:
+      "Log bugs with technical descriptions or pitch ambitious feature requests.",
     icon: FileEdit,
   },
   {
     step: "03",
     title: "Track to resolution",
-    description: "Collaborate, update lifecycle statuses, and celebrate resolving issues together.",
+    description:
+      "Collaborate, update lifecycle statuses, and celebrate resolving issues together.",
     icon: CheckCircle2,
   },
 ];
@@ -34,18 +37,13 @@ export function HowItWorks() {
           </Reveal>
           <Reveal delay={100}>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Three streamlined steps from discovering a bug to deploying a clean fix.
+              Three streamlined steps from discovering a bug to deploying a
+              clean fix.
             </p>
           </Reveal>
         </div>
 
         <div className="relative">
-          {/* Dashed connector line visible on md and up */}
-          <div
-            aria-hidden="true"
-            className="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 border-t-2 border-dashed border-border/80 -z-0"
-          />
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10">
             {steps.map((item, index) => {
               const Icon = item.icon;

@@ -152,7 +152,7 @@ export function EditIssueDialog({
                 className={cn(
                   "inline-flex items-center justify-center gap-2 rounded-md py-1.5 text-xs font-medium transition-all outline-none",
                   type === "bug"
-                    ? "bg-card text-foreground shadow-xs"
+                    ? "bg-secondary text-secondary-foreground shadow-xs"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -166,7 +166,7 @@ export function EditIssueDialog({
                 className={cn(
                   "inline-flex items-center justify-center gap-2 rounded-md py-1.5 text-xs font-medium transition-all outline-none",
                   type === "feature_request"
-                    ? "bg-card text-foreground shadow-xs"
+                    ? "bg-secondary text-secondary-foreground shadow-xs"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
