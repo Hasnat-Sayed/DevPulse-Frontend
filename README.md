@@ -70,7 +70,7 @@ This repository is the **Next.js frontend**, built for the Remontada Next.js ass
 | Capability | Visitor | Contributor | Maintainer |
 | --- | --- | --- | --- |
 | Browse issues, view details, related issues | Yes | Yes | Yes |
-| Register and log in | Yes | n/a | n/a |
+| Register and log in | Yes | Yes | Yes |
 | Create an issue | No | Yes | Yes |
 | Edit own issue | No | Only while status is open | Yes |
 | Edit any issue | No | No | Yes |
